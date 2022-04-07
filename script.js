@@ -152,3 +152,8 @@ btnTransfer.addEventListener('click', function (e) {
     inputTransferAmount.blur();
   }
 });
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log('Deleted');
+});
