@@ -159,6 +159,13 @@ btnClose.addEventListener('click', function (e) {
     inputCloseUsername.value === currentAccount.username &&
     Number(inputClosePin.value) === currentAccount.pin
   ) {
-    console.log('Deleted');
+    inputCloseUsername.value = inputClosePin.value = '';
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    accounts.splice(index, 1);
+    inputCloseUsername.value = inputClosePin.value = '';
+    inputClosePin.blur();
+    containerApp.style.opacity = 0;
   }
 });
