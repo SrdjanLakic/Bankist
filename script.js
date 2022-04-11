@@ -159,6 +159,15 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const minutes = now.getMinutes();
+
+    labelDate.textContent = `${month}/${day}/${year}, ${hour}:${minutes}`;
+
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
     updateUI(currentAccount);
@@ -185,6 +194,8 @@ btnTransfer.addEventListener('click', function (e) {
   ) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
+    currentAccount.movementsDates.push(new Date());
+    receiverAcc.movements.push(new Date());
     updateUI(currentAccount);
     inputTransferTo.value = inputTransferAmount.value = '';
     inputTransferAmount.blur();
@@ -214,6 +225,7 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount / 10)) {
     inputLoanAmount.value = '';
     currentAccount.movements.push(amount);
+    currentAccount.movementsDates.push(new Date());
     updateUI(currentAccount);
   }
 });
@@ -225,12 +237,3 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
-
-const now = new Date();
-const day = `${now.getDate()}`.padStart(2, 0);
-const month = `${now.getMonth() + 1}`.padStart(2, 0);
-const year = now.getFullYear();
-const hour = now.getHours();
-const minutes = now.getMinutes();
-
-labelDate.textContent = `${month}/${day}/${year}, ${hour}:${minutes}`;
