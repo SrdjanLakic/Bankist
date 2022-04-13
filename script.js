@@ -168,7 +168,7 @@ const createUsernames = function (accs) {
 };
 createUsernames(accounts);
 
-let currentAccount;
+let currentAccount, timer;
 // currentAccount = account1;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 100;
@@ -185,9 +185,10 @@ const startLogOutTimer = function () {
     }
     time--;
   };
-  let time = 10;
+  let time = 120;
   tick();
   const timer = setInterval(tick, 1000);
+  return timer;
 };
 
 btnLogin.addEventListener('click', function (e) {
@@ -217,7 +218,8 @@ btnLogin.addEventListener('click', function (e) {
 
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
-    startLogOutTimer();
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
     updateUI(currentAccount);
   }
 });
